@@ -1,0 +1,18 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        res = 0
+        #count of characters of window
+        countDict = {}
+        l = 0
+        for r in range(len(s)):
+            a = s[r]
+            countDict[a] = 1 + countDict.get(a, 0)
+            #checking the base condition
+            if (r-l+1)-max(countDict.values()) <= k:
+                res = max(res, r-l+1)
+            else:
+                #decreasing the count after sliding window
+                countDict[s[l]] -= 1
+                #sliding thw window
+                l += 1
+        return res
